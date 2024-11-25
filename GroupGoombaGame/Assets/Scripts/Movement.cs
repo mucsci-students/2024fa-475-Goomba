@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
@@ -48,8 +49,6 @@ public class Movement : MonoBehaviour
     {
         //Ground check
         grounded = Physics.CheckSphere(groundCheck.position, groundDistance, whatIsGround);
-
-        MyInput();
         SpeedControl();
 
         //handle frag
@@ -67,13 +66,16 @@ public class Movement : MonoBehaviour
     {
         MovePlayer();
     }
-
-    private void MyInput()
+    
+    public void MyInput(InputAction.CallbackContext context)
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+    }
 
-        if(Input.GetKey(jumpKey) && readyToJump && grounded)
+    public void JumpCall(InputAction.CallbackContext context)
+    {
+        if (readyToJump && grounded)
         {
             readyToJump = false;
             Jump();
