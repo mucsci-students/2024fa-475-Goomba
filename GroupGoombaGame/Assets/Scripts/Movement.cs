@@ -11,6 +11,11 @@ public class Movement : MonoBehaviour
 
     public float groundDrag;
 
+    [Header("Dash")]
+    public float dashForce;
+    public float dashCooldown;
+    bool readyToDash;
+
     [Header("Jumping")]
     public float jumpForce;
     public float jumpCooldown;
@@ -27,6 +32,7 @@ public class Movement : MonoBehaviour
     bool grounded;
 
     public Transform orintation;
+    public Transform playerDirection;
 
     float horizontalInput;
     float verticalInput;
@@ -42,6 +48,7 @@ public class Movement : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
+        readyToDash = true;
     }
 
     // Update is called once per frame
@@ -69,6 +76,7 @@ public class Movement : MonoBehaviour
     
     public void MyInput(InputAction.CallbackContext context)
     {
+        Vector2 moveInput = context.ReadValue<Vector2>();
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
     }
@@ -80,6 +88,16 @@ public class Movement : MonoBehaviour
             readyToJump = false;
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
+        }
+    }
+
+    public void Dash(InputAction.CallbackContext context)
+    {
+        if (readyToDash)
+        {
+            readyToDash = false;
+            rb.AddForce(playerDirection.forward * dashForce, ForceMode.Impulse);
+            Invoke(nameof(ResetDash), dashCooldown);
         }
     }
 
@@ -118,5 +136,10 @@ public class Movement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    private void ResetDash()
+    {
+        readyToDash = true;
     }
 }
