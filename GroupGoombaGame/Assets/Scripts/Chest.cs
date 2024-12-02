@@ -12,8 +12,9 @@ public class Chest : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (other.GetComponentInParent<PlayerInventory>().CheckKeys(keyNeeded))
+            if (other.GetComponentInParent<PlayerInventory>().CheckKeys())
             {
+                other.GetComponentInParent<PlayerInventory>().KeyGet(-1);
                 Destroy(this.gameObject);
             }
         }

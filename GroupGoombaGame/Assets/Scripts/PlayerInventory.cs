@@ -6,38 +6,34 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     [Header("Coins")]
-
     int coins;
     public TextMeshProUGUI coinDisplay;
 
     [Header("Items")]
-    bool[] keys;
+    int keys;
+    public TextMeshProUGUI keyDisplay;
 
-
-    AreaManager areaManager;
-    
     // Start is called before the first frame update
     void Start()
     {
         coins = 0;
-        areaManager = FindObjectOfType<AreaManager>();
-        keys = new bool[areaManager.numKeys];
+        keys = 0;
     }
 
     public void UpdateCoins(int amount)
     {
         coins += amount;
-
         coinDisplay.text = "Coins: " + coins.ToString();
     }
 
-    public void KeyGet(int keyId)
+    public void KeyGet(int amount)
     {
-        keys[keyId] = true;
+        keys += amount;
+        keyDisplay.text = "Keys: " + keys.ToString();
     }
 
-    public bool CheckKeys(int id)
+    public bool CheckKeys()
     {
-        return keys[id];
+        return keys >= 1;
     }
 }

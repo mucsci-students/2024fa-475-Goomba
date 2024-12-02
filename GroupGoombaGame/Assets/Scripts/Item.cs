@@ -6,7 +6,6 @@ public class Item : MonoBehaviour
 {
     [Header("Item Type")]
     public bool key;
-    public int keyId;
     public bool coin;
 
     private void OnTriggerEnter(Collider other)
@@ -19,7 +18,7 @@ public class Item : MonoBehaviour
             }
             if (key)
             {
-                other.GetComponentInParent<PlayerInventory>().KeyGet(keyId);
+                other.GetComponentInParent<PlayerInventory>().KeyGet(1);
             }
             Destroy(this.gameObject);
         }
