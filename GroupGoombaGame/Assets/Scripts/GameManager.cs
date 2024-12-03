@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public GameObject canvas;
     public GameObject htpDisplay;
     public TextMeshProUGUI htpText;
+    public TextMeshProUGUI pauseText;
 
     //**********************************************************
 
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
     {
         isGamePaused = Input.GetKeyDown(KeyCode.P);
         OnApplicationPause(isGamePaused);
-        
+
         if (hasEnteredMinigame == true)
         {
             deactivate();
@@ -65,7 +66,13 @@ public class GameManager : MonoBehaviour
         }
         else if (hasWonCurrentMinigame == true)
         {
-            wonMinigame(currentMinigameIndex);
+            //wonMinigame(currentMinigameIndex);
+            hasReadHTP = Input.GetKeyDown(KeyCode.K);
+            if (hasReadHTP == true)
+            {
+                Debug.Log("K key has been pressed.");
+                htpText.text = "Make me do something plz." + "\n" + "like taking me to the ice castle";
+            }
         }
     }
 
@@ -93,7 +100,7 @@ public class GameManager : MonoBehaviour
             if (startDelay == 150)
             {
                 Debug.Log("Start Delay Complete.");
-                htpText.text = "Paused";
+                showPauseText(currentMinigameIndex);
                 activate();
                 delayInitialized = false;
             }
@@ -148,12 +155,27 @@ public class GameManager : MonoBehaviour
         htpText.text = htpstrings[minigameIndex] + "\n" + "Press the [K] Key to Continue.";
     }
 
+    void showPauseText(int minigameIndex)
+    {
+        htpText.text = "Paused";
+        pauseText.text = "How To Play: " + "\n" + (minigameHTPS()[minigameIndex]) + "\n" + "\n" + "Controls: " + "\n" + (minigameControls()[minigameIndex]);
+    }
+
     string[] minigameHTPS()
     {
         string[] htpstrings = new string[10];
         htpstrings[0] = "Collect the Key to Open the Chest.";
 
         return htpstrings;
+    }
+
+    string[] minigameControls()
+    {
+        string[] controlsStrings = new string[10];
+
+        controlsStrings[0] = "Move Around: WASD Keys |OR| Arrow Keys" + "\n" + "Jump: [SPACEBAR]";
+
+        return controlsStrings;
     }
 
     string[] minigameNames()
@@ -175,7 +197,9 @@ public class GameManager : MonoBehaviour
         Debug.Log("wonMinigame has been called.");
         minigamesWon[minigameIndex] = true;
         deactivate();
+        pauseText.text = "";
         htpText.text = "You have won the Minigame: " + minigameNames()[minigameIndex] + "\n" + "Press the [K] Key to Continue.";
+        hasWonCurrentMinigame = true;
 
         //switch statement instead of else ifs. <<--- maybe do this if there will be seperate methods for each minigame.
         //if (minigameIndex == 0)
