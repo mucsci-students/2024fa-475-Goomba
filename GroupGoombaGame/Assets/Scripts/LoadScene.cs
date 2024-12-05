@@ -12,7 +12,13 @@ public class LoadScene : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            SetInactive();
             SceneManager.LoadSceneAsync(sceneToLoad.name);
         }
+    }
+
+    public void SetInactive()
+    {
+        gameObject.SetActive(false);
     }
 }
