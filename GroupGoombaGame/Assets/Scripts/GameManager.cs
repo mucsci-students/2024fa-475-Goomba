@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("K key has been pressed.");
                 htpText.text = "Loading Main Hub";
-                SceneManager.LoadSceneAsync(mainHub.name);
+                SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
             }
         }
     }

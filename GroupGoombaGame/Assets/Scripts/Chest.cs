@@ -8,7 +8,10 @@ public class Chest : MonoBehaviour
     public bool needKey;
     public int keyNeeded;
     public GameManager gameManager;
-
+    private void Start()
+    {
+        gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GameManager>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
