@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
     private bool hasWonCurrentMinigame = false;
     private bool[] minigamesWon;
 
-    private int currentMinigameIndex;
     private int startDelay = 0;
     private int pauseKeyCount = 0;
 
@@ -32,6 +31,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI pauseText;
 
     public SceneAsset mainHub;
+    public SceneAsset[] minigameScenes;
 
     //**********************************************************
 
@@ -40,9 +40,9 @@ public class GameManager : MonoBehaviour
     {
       //FOR TESTING PURPOSES (need to move these to another method. i want it to be called once: when hasEnteredMinigame = true.)
         hasEnteredMinigame = true;
-        currentMinigameIndex = 0;
+        //currentMinigameIndex = 0;
         minigamesWon = new bool[10];
-        minigamesWon[currentMinigameIndex] = hasWonCurrentMinigame;
+        minigamesWon[currentMinigameIndex()] = hasWonCurrentMinigame;
     }
 
     // Update is called once per frame
@@ -54,8 +54,7 @@ public class GameManager : MonoBehaviour
         if (hasEnteredMinigame == true)
         {
             deactivate();
-            //int minigameIndex;
-            showHowToPlay(0);
+            showHowToPlay(currentMinigameIndex());
 
             hasReadHTP = Input.GetKeyDown(KeyCode.K);
             if (hasReadHTP == true)
@@ -76,7 +75,7 @@ public class GameManager : MonoBehaviour
             if (hasReadHTP == true)
             {
                 Debug.Log("K key has been pressed.");
-                htpText.text = "Make me do something plz." + "\n" + "like taking me to the ice castle";
+                htpText.text = "Loading Main Hub";
                 SceneManager.LoadSceneAsync(mainHub.name);
             }
         }
@@ -106,7 +105,7 @@ public class GameManager : MonoBehaviour
             if (startDelay == 150)
             {
                 Debug.Log("Start Delay Complete.");
-                showPauseText(currentMinigameIndex);
+                showPauseText(currentMinigameIndex());
                 activate();
                 delayInitialized = false;
             }
@@ -184,13 +183,20 @@ public class GameManager : MonoBehaviour
         return controlsStrings;
     }
 
-    string[] minigameNames()
+    int currentMinigameIndex()
     {
-        string[] minigameStrings = new string[10];
+        int result = 0;
+        string currentSceneName = SceneManager.GetActiveScene().name;
 
-        minigameStrings[0] = "Test";
-
-        return minigameStrings;
+        for (int i = 0; i < minigameScenes.Length; i++)
+        {
+            if (currentSceneName.Equals(minigameScenes[i]))
+            {
+                result = i;
+                break;
+            }
+        }
+        return result;
     }
 
 
@@ -204,8 +210,12 @@ public class GameManager : MonoBehaviour
         minigamesWon[minigameIndex] = true;
         deactivate();
         pauseText.text = "";
-        htpText.text = "You have won the Minigame: " + minigameNames()[minigameIndex] + "\n" + "Press the [K] Key to Continue.";
+        htpText.text = "You have won the Minigame: " + SceneManager.GetActiveScene().name + "\n" + "Press the [K] Key to Continue.";
         hasWonCurrentMinigame = true;
+
+        //SceneManager.GetAllScenes
+        //SceneManager.GetSceneByName
+        //SceneManager.GetActiveScene().name
 
         //switch statement instead of else ifs. <<--- maybe do this if there will be seperate methods for each minigame.
         //if (minigameIndex == 0)
