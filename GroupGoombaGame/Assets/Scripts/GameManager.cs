@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
+using UnityEditor.SceneTemplate;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +30,8 @@ public class GameManager : MonoBehaviour
     public GameObject htpDisplay;
     public TextMeshProUGUI htpText;
     public TextMeshProUGUI pauseText;
+
+    public SceneAsset mainHub;
 
     //**********************************************************
 
@@ -72,6 +77,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("K key has been pressed.");
                 htpText.text = "Make me do something plz." + "\n" + "like taking me to the ice castle";
+                SceneManager.LoadSceneAsync(mainHub.name);
             }
         }
     }
