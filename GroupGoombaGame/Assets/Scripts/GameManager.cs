@@ -6,6 +6,7 @@ using UnityEditor.SceneTemplate;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//Class should NOT be used in MainHub. Create a seperate class to manage the MainHub.
 public class GameManager : MonoBehaviour
 {
     //Global Variable Declarations:
@@ -14,7 +15,6 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject freeLookCamera;
 
-    //set to true when player first enters a minigame from the ice castle. if its true, show how to play the current minigame.
     private bool hasEnteredMinigame = false;
     private bool hasReadHTP;
     private bool delayInitialized = false;
@@ -38,11 +38,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      //FOR TESTING PURPOSES (need to move these to another method. i want it to be called once: when hasEnteredMinigame = true.)
-        hasEnteredMinigame = true;
-        //currentMinigameIndex = 0;
-        minigamesWon = new bool[10];
+        hasEnteredMinigame = true; // <----- with DontDestroyOnLoad, this could be an issue. It needs to be set to true when a minigame scene is loaded.
+        minigamesWon = new bool[minigameScenes.Length];
         minigamesWon[currentMinigameIndex()] = hasWonCurrentMinigame;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
