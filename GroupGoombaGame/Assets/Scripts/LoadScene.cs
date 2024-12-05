@@ -13,7 +13,11 @@ public class LoadScene : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             SetInactive();
-            SceneManager.LoadSceneAsync(sceneToLoad.name);
+            SceneManager.LoadSceneAsync(sceneToLoad.name, LoadSceneMode.Additive);
+            Scene next = SceneManager.GetSceneByName(sceneToLoad.name);
+            SceneManager.SetActiveScene(next);
+            //SceneManager.GetActiveScene();
+            
         }
     }
 
