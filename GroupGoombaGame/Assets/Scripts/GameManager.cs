@@ -157,8 +157,7 @@ public class GameManager : MonoBehaviour
     void showHowToPlay(int minigameIndex)
     {
         htpDisplay.SetActive(true);
-        string[] htpstrings = minigameHTPS();
-        htpText.text = htpstrings[minigameIndex] + "\n" + "Press the [K] Key to Continue.";
+        htpText.text = minigameHTPS()[minigameIndex] + "\n" + "Press the [K] Key to Continue.";
     }
 
     void showPauseText(int minigameIndex)
@@ -170,7 +169,11 @@ public class GameManager : MonoBehaviour
     string[] minigameHTPS()
     {
         string[] htpstrings = new string[10];
+
+        //Movement
         htpstrings[0] = "Collect the Key to Open the Chest.";
+        //KartRacing
+        htpstrings[1] = "Race to the Goal and Beat the Target Time.";
 
         return htpstrings;
     }
@@ -180,6 +183,7 @@ public class GameManager : MonoBehaviour
         string[] controlsStrings = new string[10];
 
         controlsStrings[0] = "Move Around: WASD Keys |OR| Arrow Keys" + "\n" + "Jump: [SPACEBAR]";
+        controlsStrings[1] = "Move Around: WASD Keys |OR| Arrow Keys";
 
         return controlsStrings;
     }
@@ -189,11 +193,10 @@ public class GameManager : MonoBehaviour
         int result = 0;
         string currentSceneName = SceneManager.GetActiveScene().name;
 
-        for (int i = 0; i < minigameScenes.Length; i++)
+        for (result = 0; result < (minigameScenes.Length - 1); result++)
         {
-            if (currentSceneName.Equals(minigameScenes[i]))
+            if (currentSceneName.Equals(minigameScenes[result].ToString()))
             {
-                result = i;
                 break;
             }
         }
