@@ -19,9 +19,9 @@ public class Chest : MonoBehaviour
             if (other.GetComponentInParent<PlayerInventory>().CheckKeys())
             {
                 other.GetComponentInParent<PlayerInventory>().KeyGet(-1);
+                gameManager.wonMinigame(0);
                 Destroy(this.gameObject);
                 //maybe this can stay here?
-                gameManager.wonMinigame(0);
             }
         }
     }

@@ -18,22 +18,13 @@ public class LoadScene : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            player.SetActive(false);
             SetInactive();
-            SceneManager.LoadSceneAsync(sceneToLoad.name, LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(sceneToLoad.name);
         }
     }
 
     public void SetInactive()
     {
         gameObject.SetActive(false);
-    }
-
-    private void Update()
-    {
-        if (SceneManager.sceneCount == 1)
-        {
-            player.SetActive(true);
-        }
     }
 }

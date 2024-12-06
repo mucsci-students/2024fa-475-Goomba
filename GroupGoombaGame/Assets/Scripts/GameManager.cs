@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI pauseText;
 
     public SceneAsset mainHub;
+    public SceneAsset thisScene;
     public SceneAsset[] minigameScenes;
 
     //**********************************************************
@@ -41,7 +42,7 @@ public class GameManager : MonoBehaviour
         hasEnteredMinigame = true; // <----- with DontDestroyOnLoad, this could be an issue. It needs to be set to true when a minigame scene is loaded.
         minigamesWon = new bool[minigameScenes.Length];
         minigamesWon[currentMinigameIndex()] = hasWonCurrentMinigame;
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
@@ -75,7 +76,8 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("K key has been pressed.");
                 htpText.text = "Loading Main Hub";
-                SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+                GameObject.FindGameObjectWithTag("Manager").GetComponent<BetweenScenes>().UpdateValues(SceneManager.GetSceneByName(thisScene.name));
+                SceneManager.LoadScene(mainHub.name);
             }
         }
     }
