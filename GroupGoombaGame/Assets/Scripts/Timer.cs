@@ -6,7 +6,7 @@ using UnityEditor.SceneTemplate;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-//Should this class be called in GameManager?
+//An int can be incremented/decremented by 50 for 1 second.
 public class Timer : MonoBehaviour
 {
     //Global Variable Declarations:
@@ -17,8 +17,6 @@ public class Timer : MonoBehaviour
     public TextMeshProUGUI timeDisplay;
 
     public GameManager gameManager;
-
-    //private bool isKartRacing;
 
     private int timerValue;
     private int secondsLeft;
@@ -32,9 +30,13 @@ public class Timer : MonoBehaviour
 
         if (currentScene.name.Equals("KartRacing"))
         {
-            //isKartRacing = true;
             timerValue = 5000;
             secondsLeft = 100;
+        }
+        else if (currentScene.name.Equals("PenguinRacing"))
+        {
+            timerValue = 7500;
+            secondsLeft = 150;
         }
     }
 
@@ -62,8 +64,6 @@ public class Timer : MonoBehaviour
         //Losing Condition:
         else if (secondsLeft == 0)
         {
-            //what happens when the player loses the game?
-            //Debug.Log("Time is Up.");
             gameManager.lostMinigame();
         }
         //Winning Condition could be somewhere else?

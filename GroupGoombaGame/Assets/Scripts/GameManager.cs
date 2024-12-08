@@ -195,22 +195,26 @@ public class GameManager : MonoBehaviour
 
     string[] minigameHTPS()
     {
-        string[] htpstrings = new string[10];
+        string[] htpstrings = new string[minigameScenes.Length];
 
         //Movement
         htpstrings[0] = "Collect the Key to Open the Chest.";
         //KartRacing
         htpstrings[1] = "Race to the Goal and Beat the Target Time.";
+        //PenguinRacing
+        htpstrings[2] = htpstrings[1];
 
         return htpstrings;
     }
 
     string[] minigameControls()
     {
-        string[] controlsStrings = new string[10];
+        string[] controlsStrings = new string[minigameScenes.Length];
 
         controlsStrings[0] = "Move Around: WASD Keys |OR| Arrow Keys" + "\n" + "Jump: [SPACEBAR]";
-        controlsStrings[1] = "Move Around: WASD Keys |OR| Arrow Keys";
+        //controlsStrings[1] = "Move Around: WASD Keys |OR| Arrow Keys";
+        controlsStrings[1] = controlsStrings[0];
+        controlsStrings[2] = controlsStrings[0];
 
         return controlsStrings;
     }
