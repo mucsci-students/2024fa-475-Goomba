@@ -33,8 +33,8 @@ public class Timer : MonoBehaviour
         if (currentScene.name.Equals("KartRacing"))
         {
             //isKartRacing = true;
-            timerValue = 500;
-            secondsLeft = 10;
+            timerValue = 5000;
+            secondsLeft = 100;
         }
     }
 
