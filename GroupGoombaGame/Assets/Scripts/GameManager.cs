@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     private bool delayInitialized = false;
     private bool isGamePaused;
     private bool hasWonCurrentMinigame = false;
+    private bool hasLostCurrentMinigame = false;
     private bool[] minigamesWon;
 
     private int startDelay = 0;
@@ -70,7 +71,7 @@ public class GameManager : MonoBehaviour
         }
         else if (hasWonCurrentMinigame == true)
         {
-            //wonMinigame(currentMinigameIndex);
+            wonMinigame(currentMinigameIndex());
             hasReadHTP = Input.GetKeyDown(KeyCode.K);
             if (hasReadHTP == true)
             {
@@ -78,6 +79,32 @@ public class GameManager : MonoBehaviour
                 htpText.text = "Loading Main Hub";
                 GameObject.FindGameObjectWithTag("Manager").GetComponent<BetweenScenes>().UpdateValues(SceneManager.GetSceneByName(thisScene.name));
                 SceneManager.LoadScene(mainHub.name);
+            }
+        }
+        else if (hasLostCurrentMinigame == true)
+        {
+            bool isRetry = Input.GetKeyDown(KeyCode.C);
+
+            //being used for main hub:
+            hasReadHTP = Input.GetKeyDown(KeyCode.K);
+            if (hasReadHTP == true)
+            {
+                Debug.Log("K key has been pressed.");
+                htpText.text = "Loading Main Hub";
+                GameObject.FindGameObjectWithTag("Manager").GetComponent<BetweenScenes>().UpdateValues(SceneManager.GetSceneByName(thisScene.name));
+                SceneManager.LoadScene(mainHub.name);
+
+                hasLostCurrentMinigame = false;
+                //hasWonCurrentMinigame = false;
+            }
+            else if (isRetry == true)
+            {
+                Debug.Log("C key has been pressed.");
+                htpText.text = "Loading Minigame";
+                GameObject.FindGameObjectWithTag("Manager").GetComponent<BetweenScenes>().UpdateValues(SceneManager.GetSceneByName(thisScene.name));
+                SceneManager.LoadScene(thisScene.name);
+
+                hasLostCurrentMinigame = false;
             }
         }
     }
@@ -210,12 +237,12 @@ public class GameManager : MonoBehaviour
     //called when a minigame is won.
     public void wonMinigame(int minigameIndex)
     {
-        Debug.Log("wonMinigame has been called.");
+        //Debug.Log("wonMinigame has been called.");
         minigamesWon[minigameIndex] = true;
         deactivate();
         pauseText.text = "";
         htpText.text = "You have won the Minigame: " + SceneManager.GetActiveScene().name + "\n" + "Press the [K] Key to Continue.";
-        hasWonCurrentMinigame = true;
+        //hasWonCurrentMinigame = true;
 
         //SceneManager.GetAllScenes
         //SceneManager.GetSceneByName
@@ -226,6 +253,26 @@ public class GameManager : MonoBehaviour
         //{
 
         //}
+    }
+
+    public void setHasWonCurrentMinigame(bool condition)
+    {
+        hasWonCurrentMinigame = condition;
+    }
+
+    public bool getHasWonCurrentMinigame()
+    {
+        return hasWonCurrentMinigame;
+    }
+
+    public void lostMinigame()
+    {
+        //Debug.Log("lostMinigame has been called.");
+        deactivate();
+        pauseText.text = "";
+        htpText.text = "You have lost the Minigame: " + SceneManager.GetActiveScene().name + "\n" + "\n" + "Press the [K] Key to Continue to Main Hub." + "\n" + "Press the [C] Key to Try Again.";
+        //make sure this gets reset to false:
+        hasLostCurrentMinigame = true;
     }
 
     //Winning Different Minigames:

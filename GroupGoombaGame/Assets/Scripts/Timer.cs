@@ -16,6 +16,8 @@ public class Timer : MonoBehaviour
 
     public TextMeshProUGUI timeDisplay;
 
+    public GameManager gameManager;
+
     //private bool isKartRacing;
 
     private int timerValue;
@@ -45,7 +47,7 @@ public class Timer : MonoBehaviour
     void FixedUpdate()
     {
         //should this be secondsLeft, or timerValue && secondsLeft ?
-        if (timerValue > 0)
+        if ((timerValue > 0) && (gameManager.getHasWonCurrentMinigame() == false))
         {
             timerValue--;
 
@@ -61,7 +63,10 @@ public class Timer : MonoBehaviour
         else if (secondsLeft == 0)
         {
             //what happens when the player loses the game?
-            Debug.Log("Time is Up.");
+            //Debug.Log("Time is Up.");
+            gameManager.lostMinigame();
         }
+        //Winning Condition could be somewhere else?
+        //as for the kart racing minigame, the player should enter a collision zone and when they enter it, call: gameManager.setHasWonCurrentMinigame(true);
     }
 }
