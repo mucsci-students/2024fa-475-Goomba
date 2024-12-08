@@ -14,6 +14,7 @@ public class Chest : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("OnTriggerEnter for Chest has been called.");
         if (other.CompareTag("Player"))
         {
             if (other.GetComponentInParent<PlayerInventory>().CheckKeys())

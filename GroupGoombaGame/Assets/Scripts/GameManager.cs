@@ -195,7 +195,7 @@ public class GameManager : MonoBehaviour
 
     string[] minigameHTPS()
     {
-        string[] htpstrings = new string[minigameScenes.Length];
+        string[] htpstrings = new string[10];
 
         //Movement
         htpstrings[0] = "Collect the Key to Open the Chest.";
@@ -209,7 +209,7 @@ public class GameManager : MonoBehaviour
 
     string[] minigameControls()
     {
-        string[] controlsStrings = new string[minigameScenes.Length];
+        string[] controlsStrings = new string[10];
 
         controlsStrings[0] = "Move Around: WASD Keys |OR| Arrow Keys" + "\n" + "Jump: [SPACEBAR]";
         //controlsStrings[1] = "Move Around: WASD Keys |OR| Arrow Keys";
