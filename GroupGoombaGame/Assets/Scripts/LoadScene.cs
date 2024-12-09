@@ -10,6 +10,7 @@ public class LoadScene : MonoBehaviour
     public int index;
     private GameObject player;
     private BetweenScenes between;
+    public bool isOnRight;
 
     private void Start()
     {
@@ -21,7 +22,8 @@ public class LoadScene : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Vector3 returnPoint = new Vector3(gameObject.transform.position.x + 2f, gameObject.transform.position.y, gameObject.transform.position.z);
+            float offset = isOnRight ? -2f : 2f; 
+            Vector3 returnPoint = new Vector3(gameObject.transform.position.x + offset, gameObject.transform.position.y, gameObject.transform.position.z);
             between.UpdateValues(returnPoint, index);
             SetInactive();
             SceneManager.LoadSceneAsync(sceneToLoad.name);
