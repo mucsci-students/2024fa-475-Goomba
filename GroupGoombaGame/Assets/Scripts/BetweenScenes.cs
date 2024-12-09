@@ -18,6 +18,10 @@ public class BetweenScenes : MonoBehaviour
     public void UpdateValues(Vector3 pos, int index)
     {
         this.returnPoint = pos;
+    }
+
+    public void UpdateMinigameWon(int index)
+    {
         activeDoors[index] = true;
     }
 
