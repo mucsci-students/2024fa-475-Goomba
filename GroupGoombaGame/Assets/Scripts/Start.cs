@@ -18,7 +18,7 @@ public class Starter : MonoBehaviour
         bool[] bools = FindObjectOfType<BetweenScenes>().GetActive();
         for(int i = 0; i < doors.Length; i++)
         {
-            doors[i].SetActive(bools[i]);
+            doors[i].SetActive(!(bools[i]));
         }
     }
 }
