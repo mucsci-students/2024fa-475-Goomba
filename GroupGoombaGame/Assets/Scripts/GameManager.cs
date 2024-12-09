@@ -77,7 +77,6 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("K key has been pressed.");
                 htpText.text = "Loading Main Hub";
-                GameObject.FindGameObjectWithTag("Manager").GetComponent<BetweenScenes>().UpdateValues(SceneManager.GetSceneByName(thisScene.name));
                 SceneManager.LoadScene(mainHub.name);
             }
         }
@@ -91,7 +90,6 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("K key has been pressed.");
                 htpText.text = "Loading Main Hub";
-                GameObject.FindGameObjectWithTag("Manager").GetComponent<BetweenScenes>().UpdateValues(SceneManager.GetSceneByName(thisScene.name));
                 SceneManager.LoadScene(mainHub.name);
 
                 hasLostCurrentMinigame = false;
@@ -101,7 +99,6 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("C key has been pressed.");
                 htpText.text = "Loading Minigame";
-                GameObject.FindGameObjectWithTag("Manager").GetComponent<BetweenScenes>().UpdateValues(SceneManager.GetSceneByName(thisScene.name));
                 SceneManager.LoadScene(thisScene.name);
 
                 hasLostCurrentMinigame = false;
