@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class BetweenScenes : MonoBehaviour
 {
     private Vector3 returnPoint;
-    private bool[] activeDoors = new bool[4];
+    private bool[] minigamesWon = new bool[4];
 
     // Start is called before the first frame update
     void Start()
@@ -15,14 +15,14 @@ public class BetweenScenes : MonoBehaviour
         returnPoint = new Vector3(0f, 0f, -2f);
     }
 
-    public void UpdateValues(Vector3 pos, int index)
+    public void UpdateValues(Vector3 pos)
     {
         this.returnPoint = pos;
     }
 
     public void UpdateMinigameWon(int index)
     {
-        activeDoors[index] = true;
+        minigamesWon[index] = true;
     }
 
     public Vector3 GetPoint()
@@ -32,6 +32,6 @@ public class BetweenScenes : MonoBehaviour
 
     public bool[] GetActive()
     {
-        return activeDoors;
+        return minigamesWon;
     }
 }

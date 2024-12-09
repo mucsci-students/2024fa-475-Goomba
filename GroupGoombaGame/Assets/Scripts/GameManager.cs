@@ -21,10 +21,11 @@ public class GameManager : MonoBehaviour
     private bool isGamePaused;
     private bool hasWonCurrentMinigame = false;
     private bool hasLostCurrentMinigame = false;
-    private bool[] minigamesWon;
+    //private bool[] minigamesWon;
 
     private int startDelay = 0;
     private int pauseKeyCount = 0;
+    public int currentMinigameIndex;
 
     public GameObject canvas;
     public GameObject htpDisplay;
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
 
     public SceneAsset mainHub;
     public SceneAsset thisScene;
-    public SceneAsset[] minigameScenes;
+    //public SceneAsset[] minigameScenes;
 
     //**********************************************************
 
@@ -41,8 +42,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         hasEnteredMinigame = true; // <----- with DontDestroyOnLoad, this could be an issue. It needs to be set to true when a minigame scene is loaded.
-        minigamesWon = new bool[minigameScenes.Length];
-        minigamesWon[currentMinigameIndex()] = hasWonCurrentMinigame;
+        //everything should be false by default.
+        //minigamesWon = new bool[minigameScenes.Length];
+        //minigamesWon[currentMinigameIndex()] = hasWonCurrentMinigame;
         //DontDestroyOnLoad(this.gameObject);
     }
 
@@ -55,7 +57,7 @@ public class GameManager : MonoBehaviour
         if (hasEnteredMinigame == true)
         {
             deactivate();
-            showHowToPlay(currentMinigameIndex());
+            showHowToPlay(currentMinigameIndex);
 
             hasReadHTP = Input.GetKeyDown(KeyCode.K);
             if (hasReadHTP == true)
@@ -71,7 +73,7 @@ public class GameManager : MonoBehaviour
         }
         else if (hasWonCurrentMinigame == true)
         {
-            wonMinigame(currentMinigameIndex());
+            wonMinigame(currentMinigameIndex);
             hasReadHTP = Input.GetKeyDown(KeyCode.K);
             if (hasReadHTP == true)
             {
@@ -130,7 +132,7 @@ public class GameManager : MonoBehaviour
             if (startDelay == 150)
             {
                 Debug.Log("Start Delay Complete.");
-                showPauseText(currentMinigameIndex());
+                showPauseText(currentMinigameIndex);
                 activate();
                 delayInitialized = false;
             }
@@ -216,30 +218,18 @@ public class GameManager : MonoBehaviour
         return controlsStrings;
     }
 
-    int currentMinigameIndex()
-    {
-        int result = 0;
-        string currentSceneName = SceneManager.GetActiveScene().name;
 
-        for (result = 0; result < (minigameScenes.Length - 1); result++)
-        {
-            if (currentSceneName.Equals(minigameScenes[result].ToString()))
-            {
-                break;
-            }
-        }
-        return result;
-    }
-
-
-    //Minigame winning code: (messy wip)
+    //Minigame Winning/Losing:
     //**************************************************************************************************************
 
     //called when a minigame is won.
     public void wonMinigame(int minigameIndex)
     {
         //Debug.Log("wonMinigame has been called.");
-        minigamesWon[minigameIndex] = true;
+        //minigamesWon()[minigameIndex] = true;
+        BetweenScenes between = GameObject.FindGameObjectWithTag("Between").GetComponent<BetweenScenes>();
+        between.UpdateMinigameWon(minigameIndex);
+
         deactivate();
         pauseText.text = "";
         htpText.text = "You have won the Minigame: " + SceneManager.GetActiveScene().name + "\n" + "Press the [K] Key to Continue.";
@@ -259,12 +249,21 @@ public class GameManager : MonoBehaviour
     public void setHasWonCurrentMinigame(bool condition)
     {
         hasWonCurrentMinigame = condition;
+        //minigamesWon()[currentMinigameIndex] = condition;
     }
 
     public bool getHasWonCurrentMinigame()
     {
         return hasWonCurrentMinigame;
     }
+
+    //public bool[] minigamesWon()
+    //{
+    //    bool[] wins = new bool[minigameScenes.Length];
+    //    return wins;
+    //}
+
+
 
     public void lostMinigame()
     {
@@ -275,16 +274,4 @@ public class GameManager : MonoBehaviour
         //make sure this gets reset to false:
         hasLostCurrentMinigame = true;
     }
-
-    //Winning Different Minigames:
-    //*************************************************************************************************************
-
-    //determines if the test minigame has been won. (seperate methods for each because each objective is different.) ????
-
-    //bool hasWonGame0()
-    //{
-        
-        //hasWonCurrentMinigame = true;
-        //return hasWonCurrentMinigame;
-    //}
 }
