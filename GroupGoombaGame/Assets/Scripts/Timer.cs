@@ -38,6 +38,11 @@ public class Timer : MonoBehaviour
             timerValue = 7500;
             secondsLeft = 150;
         }
+        else if (currentScene.name.Equals("FireEnemies"))
+        {
+            timerValue = 10000;
+            secondsLeft = 200;
+        }
     }
 
     // Update is called once per frame
@@ -68,5 +73,10 @@ public class Timer : MonoBehaviour
         }
         //Winning Condition could be somewhere else?
         //as for the kart racing minigame, the player should enter a collision zone and when they enter it, call: gameManager.setHasWonCurrentMinigame(true);
+    }
+
+    public void setSecondsLeft(int newSecondsLeft)
+    {
+        secondsLeft = newSecondsLeft;
     }
 }

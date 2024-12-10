@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     private bool isGamePaused;
     private bool hasWonCurrentMinigame = false;
     private bool hasLostCurrentMinigame = false;
-    //private bool[] minigamesWon;
 
     private int startDelay = 0;
     private int pauseKeyCount = 0;
@@ -34,7 +33,6 @@ public class GameManager : MonoBehaviour
 
     public SceneAsset mainHub;
     public SceneAsset thisScene;
-    //public SceneAsset[] minigameScenes;
 
     //**********************************************************
 
@@ -63,11 +61,9 @@ public class GameManager : MonoBehaviour
             if (hasReadHTP == true)
             {
                 Debug.Log("K key has been pressed.");
-                //not sure whether to put controls and how to play together or not.
+
                 delayInitialized = true;
                 hasEnteredMinigame = false;
-                //activate();
-                //htpDisplay.SetActive(false);
                 hasReadHTP = false;
             }
         }
@@ -179,7 +175,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //should be slightly different dependent on the minigame.
     void showHowToPlay(int minigameIndex)
     {
         htpDisplay.SetActive(true);
@@ -199,9 +194,11 @@ public class GameManager : MonoBehaviour
         //Movement
         htpstrings[0] = "Collect the Key to Open the Chest.";
         //KartRacing
-        htpstrings[1] = "Race to the Goal and Beat the Target Time.";
+        htpstrings[1] = "Race to the Goal and Beat the Target Time."; //collect coins to extend time?
         //PenguinRacing
         htpstrings[2] = htpstrings[1];
+        //FireEnemies
+        htpstrings[3] = "Defeat all Fire Enemies" + "\n" + "Before the Time runs out.";
 
         return htpstrings;
     }
@@ -214,6 +211,7 @@ public class GameManager : MonoBehaviour
         //controlsStrings[1] = "Move Around: WASD Keys |OR| Arrow Keys";
         controlsStrings[1] = controlsStrings[0];
         controlsStrings[2] = controlsStrings[0];
+        controlsStrings[3] = controlsStrings[0];
 
         return controlsStrings;
     }
@@ -225,45 +223,23 @@ public class GameManager : MonoBehaviour
     //called when a minigame is won.
     public void wonMinigame(int minigameIndex)
     {
-        //Debug.Log("wonMinigame has been called.");
-        //minigamesWon()[minigameIndex] = true;
         BetweenScenes between = GameObject.FindGameObjectWithTag("Between").GetComponent<BetweenScenes>();
         between.UpdateMinigameWon(minigameIndex);
 
         deactivate();
         pauseText.text = "";
         htpText.text = "You have won the Minigame: " + SceneManager.GetActiveScene().name + "\n" + "Press the [K] Key to Continue.";
-        //hasWonCurrentMinigame = true;
-
-        //SceneManager.GetAllScenes
-        //SceneManager.GetSceneByName
-        //SceneManager.GetActiveScene().name
-
-        //switch statement instead of else ifs. <<--- maybe do this if there will be seperate methods for each minigame.
-        //if (minigameIndex == 0)
-        //{
-
-        //}
     }
 
     public void setHasWonCurrentMinigame(bool condition)
     {
         hasWonCurrentMinigame = condition;
-        //minigamesWon()[currentMinigameIndex] = condition;
     }
 
     public bool getHasWonCurrentMinigame()
     {
         return hasWonCurrentMinigame;
     }
-
-    //public bool[] minigamesWon()
-    //{
-    //    bool[] wins = new bool[minigameScenes.Length];
-    //    return wins;
-    //}
-
-
 
     public void lostMinigame()
     {
