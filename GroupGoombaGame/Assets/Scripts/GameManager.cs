@@ -198,7 +198,7 @@ public class GameManager : MonoBehaviour
         //PenguinRacing
         htpstrings[2] = htpstrings[1];
         //FireEnemies
-        htpstrings[3] = "Defeat all Fire Enemies" + "\n" + "Before the Time runs out.";
+        htpstrings[3] = "Avoid all Fire Enemies" + "\n" + "Until the Time runs out.";
 
         return htpstrings;
     }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Might create an EnemySpawningManager that will set new fire enemies active at given seconds left.
+
 //DO NOT USE DESTROY. DESTROYING PREVENTS THE UPDATE CHECK FROM WORKING.
 public class FireEnemyTasks : MonoBehaviour
 {
@@ -11,13 +13,8 @@ public class FireEnemyTasks : MonoBehaviour
     public GameObject player;
     public GameObject currentFireEnemy;
     public Rigidbody rb;
-    //public GameObject timerObject;
 
     public GameManager gameManager;
-
-    //could show how many enemies have been defeated & are left.
-    //private int enemiesDefeated = 0;
-    //public int enemiesLeft;
 
     //**********************************************************
 
@@ -30,23 +27,11 @@ public class FireEnemyTasks : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (enemiesLeft <= 0)
-        //{
-        //    gameManager.setHasWonCurrentMinigame(true);
-        //}
-        ////I would like the fire enemies to be inactive when the player is inactive. but how to do that without bugs?
-        //else
-        //{
-        //    if (player.activeSelf == true)
-        //    {
-        //        followPlayer();
-        //    }
-        //}
-
-        //if (player.GetComponent<Timer>().getSecondsLeft() <= 0)
-        //{
-
-        //}
+        //Follow the player if the game is still going.
+        if (player.activeSelf == true)
+        {
+            followPlayer();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -92,5 +77,8 @@ public class FireEnemyTasks : MonoBehaviour
         // Move forward
         //Rigidbody rb = currentFireEnemy.GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 2.0f);
+
+        //if two enemies collide move them away?
+        //enemies should not clump together.
     }
 }
