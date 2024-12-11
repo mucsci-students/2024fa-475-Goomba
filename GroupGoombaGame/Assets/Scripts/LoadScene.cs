@@ -24,7 +24,7 @@ public class LoadScene : MonoBehaviour
         {
             float offset = isOnRight ? -2f : 2f; 
             Vector3 returnPoint = new Vector3(gameObject.transform.position.x + offset, gameObject.transform.position.y, gameObject.transform.position.z);
-            between.UpdateValues(returnPoint, index);
+            between.UpdateValues(returnPoint);
             SetInactive();
             SceneManager.LoadSceneAsync(sceneToLoad.name);
         }

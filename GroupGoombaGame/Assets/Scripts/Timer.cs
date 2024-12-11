@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using TMPro;
 using UnityEditor;
 using UnityEditor.SceneTemplate;
@@ -17,6 +18,9 @@ public class Timer : MonoBehaviour
     public TextMeshProUGUI timeDisplay;
 
     public GameManager gameManager;
+
+    //This bool only applies to the FireEnemies minigame.
+    private bool enemyTouchedPlayer = false;
 
     private int timerValue;
     private int secondsLeft;
@@ -38,6 +42,11 @@ public class Timer : MonoBehaviour
             timerValue = 7500;
             secondsLeft = 150;
         }
+        else if (currentScene.name.Equals("FireEnemies"))
+        {
+            timerValue = 10000;
+            secondsLeft = 200;
+        }
     }
 
     // Update is called once per frame
@@ -49,7 +58,7 @@ public class Timer : MonoBehaviour
     void FixedUpdate()
     {
         //should this be secondsLeft, or timerValue && secondsLeft ?
-        if ((timerValue > 0) && (gameManager.getHasWonCurrentMinigame() == false))
+        if ((timerValue > 0) && (secondsLeft > 0) && (gameManager.getHasWonCurrentMinigame() == false))
         {
             timerValue--;
 
@@ -62,11 +71,38 @@ public class Timer : MonoBehaviour
             timeDisplay.text = "Seconds Left: " + secondsLeft.ToString();
         }
         //Losing Condition:
-        else if (secondsLeft == 0)
+        else if ((secondsLeft <= 0) && ((currentScene.name.Equals("PenguinRacing")) || (currentScene.name.Equals("KartRacing"))))
         {
             gameManager.lostMinigame();
         }
+        //Specific to FireEnemies minigame:
+        else if ((secondsLeft <= 0) && (currentScene.name.Equals("FireEnemies")))
+        {
+            if (enemyTouchedPlayer == true)
+            {
+                gameManager.lostMinigame();
+            }
+            else
+            {
+                gameManager.setHasWonCurrentMinigame(true);
+            }    
+        }
         //Winning Condition could be somewhere else?
         //as for the kart racing minigame, the player should enter a collision zone and when they enter it, call: gameManager.setHasWonCurrentMinigame(true);
+    }
+
+    public void setSecondsLeft(int newSecondsLeft)
+    {
+        secondsLeft = newSecondsLeft;
+    }
+
+    public int getSecondsLeft()
+    {
+        return secondsLeft;
+    }
+
+    public void setEnemyTouchedPlayer(bool condition)
+    {
+        enemyTouchedPlayer = condition;
     }
 }
