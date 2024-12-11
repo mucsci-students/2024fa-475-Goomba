@@ -207,7 +207,7 @@ public class GameManager : MonoBehaviour
     {
         string[] controlsStrings = new string[10];
 
-        controlsStrings[0] = "Move Around: WASD Keys |OR| Arrow Keys" + "\n" + "Jump: [SPACEBAR]";
+        controlsStrings[0] = "Move Around: WASD Keys |OR| Arrow Keys" + "\n" + "Jump: [SPACEBAR]" + "\n" + "Dash: [LEFT SHIFT]";
         //controlsStrings[1] = "Move Around: WASD Keys |OR| Arrow Keys";
         controlsStrings[1] = controlsStrings[0];
         controlsStrings[2] = controlsStrings[0];
