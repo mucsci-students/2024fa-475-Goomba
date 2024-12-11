@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 
 public class Item : MonoBehaviour
 { 
     public GameManager gameManager;
+    public OutOfBounds oob;
 
 
     [Header("Item Type")]
@@ -15,7 +17,6 @@ public class Item : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("OnTriggerEnter for Item has been called.");
-        //why is it not going past this line in the kartracing scene
 
         if (other.CompareTag("Player"))
         {
@@ -28,6 +29,14 @@ public class Item : MonoBehaviour
             {
                 Debug.Log("TriggerEnter - Key");
                 other.GetComponentInParent<PlayerInventory>().KeyGet(1);
+
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                Vector3 newSpawn = player.transform.position;
+                oob.setPlayerSpawnPosition(newSpawn);
+
+                GameObject collectedkey = GameObject.FindGameObjectWithTag("collectedkey");
+                TextMeshProUGUI collectedkeyText = collectedkey.GetComponent<TextMeshProUGUI>();
+                collectedkeyText.text = "You have collected the Key!" + "\n" + "Return back to Start to Open the Chest!";
             }
             else
             {

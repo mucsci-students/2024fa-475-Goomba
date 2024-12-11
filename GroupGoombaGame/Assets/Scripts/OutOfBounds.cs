@@ -34,4 +34,9 @@ public class OutOfBounds : MonoBehaviour
         //transport player back to spawn position or some position.
         player.transform.position = playerSpawnPosition;
     }
+
+    public void setPlayerSpawnPosition(Vector3 newSpawn)
+    {
+        playerSpawnPosition = newSpawn;
+    }
 }
