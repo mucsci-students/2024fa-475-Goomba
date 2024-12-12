@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class LoadScene : MonoBehaviour
 {
     public SceneAsset sceneToLoad;
-    public int index;
     private GameObject player;
     private BetweenScenes between;
     public bool isOnRight;
