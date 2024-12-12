@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using TMPro;
 using UnityEditor;
-using UnityEditor.SceneTemplate;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +12,7 @@ public class Timer : MonoBehaviour
     //Global Variable Declarations:
     //-----------------------------
 
-    public SceneAsset currentScene;
+    private Scene currentScene;
 
     public TextMeshProUGUI timeDisplay;
 
@@ -30,6 +29,7 @@ public class Timer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentScene = SceneManager.GetActiveScene();
         Debug.Log("Timer's Start has been called.");
 
         if (currentScene.name.Equals("KartRacing"))

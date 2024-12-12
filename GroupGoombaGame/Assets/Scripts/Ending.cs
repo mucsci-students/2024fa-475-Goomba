@@ -6,14 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class Ending : MonoBehaviour
 { 
-    public SceneAsset mainMenu;
     private void Start()
     {
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
     public void GoHome()
     {
-        SceneManager.LoadScene(mainMenu.name);
+        SceneManager.LoadScene(0);
     }
 
     public void Quit()

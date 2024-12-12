@@ -6,10 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class StartButton : MonoBehaviour
 {
-    [SerializeField] SceneAsset MainHub;
 
     public void StartGame()
     {
-        SceneManager.LoadScene(MainHub.name);
+        SceneManager.LoadScene("MainHub");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

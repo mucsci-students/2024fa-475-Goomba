@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
-using UnityEditor.SceneTemplate;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,8 +30,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI htpText;
     public TextMeshProUGUI pauseText;
 
-    public SceneAsset mainHub;
-    public SceneAsset thisScene;
+    private Scene thisScene;
 
     //**********************************************************
 
@@ -40,6 +38,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         hasEnteredMinigame = true; // <----- with DontDestroyOnLoad, this could be an issue. It needs to be set to true when a minigame scene is loaded.
+        thisScene = SceneManager.GetActiveScene();
         //everything should be false by default.
         //minigamesWon = new bool[minigameScenes.Length];
         //minigamesWon[currentMinigameIndex()] = hasWonCurrentMinigame;
@@ -75,7 +74,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("K key has been pressed.");
                 htpText.text = "Loading Main Hub";
-                SceneManager.LoadScene(mainHub.name);
+                SceneManager.LoadScene("MainHub");
             }
         }
         else if (hasLostCurrentMinigame == true)
@@ -88,7 +87,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("K key has been pressed.");
                 htpText.text = "Loading Main Hub";
-                SceneManager.LoadScene(mainHub.name);
+                SceneManager.LoadScene("MainHub");
 
                 hasLostCurrentMinigame = false;
                 //hasWonCurrentMinigame = false;

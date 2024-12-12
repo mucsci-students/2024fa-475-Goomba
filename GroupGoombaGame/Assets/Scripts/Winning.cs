@@ -7,14 +7,13 @@ using UnityEngine.SceneManagement;
 
 public class Winning : MonoBehaviour
 {
-    public SceneAsset end;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             GameObject between = GameObject.FindGameObjectWithTag("Between");
             Destroy(between);
-            SceneManager.LoadScene(end.name);
+            SceneManager.LoadScene("Winning");
         }
     }
 }
