@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 public class Starter : MonoBehaviour
 {
     [Header("Player")]
     public GameObject player;
+    public GameObject Crown;
 
     [Header("Minigame 'doors'")]
     public GameObject door1;
@@ -22,6 +24,10 @@ public class Starter : MonoBehaviour
         for(int i = 0; i < doors.Length; i++)
         {
             doors[i].SetActive(!(bools[i]));
+        }
+        if (FindObjectOfType<BetweenScenes>().GetCounter() == 4)
+        {
+            Crown.SetActive(true);
         }
     }
 }

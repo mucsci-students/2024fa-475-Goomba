@@ -7,6 +7,7 @@ public class BetweenScenes : MonoBehaviour
 {
     private Vector3 returnPoint;
     private bool[] minigamesWon = new bool[4];
+    private int counter = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class BetweenScenes : MonoBehaviour
     public void UpdateMinigameWon(int index)
     {
         minigamesWon[index] = true;
+        counter++;
     }
 
     public Vector3 GetPoint()
@@ -33,5 +35,10 @@ public class BetweenScenes : MonoBehaviour
     public bool[] GetActive()
     {
         return minigamesWon;
+    }
+
+    public int GetCounter()
+    {
+        return counter;
     }
 }
